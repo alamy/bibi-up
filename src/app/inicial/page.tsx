@@ -11,10 +11,10 @@ function formatarValor(valor: number) {
 }
 
 function calcularValor(convidados: number) {
-  const aluguel = convidados >= 100 ? 15000 : 10000;
+  const aluguel = convidados >= 98 ? 8050 : 5800;
   if (convidados < MIN_CONVIDADOS) convidados = MIN_CONVIDADOS;
   if (convidados > MAX_CONVIDADOS) convidados = MAX_CONVIDADOS;
-  return aluguel + (convidados * 200);
+  return aluguel + (convidados * 212);
 }
 
 function validarTelefone(valor: string) {
@@ -163,7 +163,7 @@ export default function InicialPage() {
         <section id="sobre" className="section-sobre">
           <div className="destaque">
             <h2 className="destaque-title">Um cenário singular para seu evento</h2>
-            <p className="destaque-desc">Localizado na Av. Rui Barbosa, 141 — Graças, Recife — o BibiApp reúne arquitetura acolhedora, iluminação natural e acabamento de alto padrão. Perfeito para cerimônias e recepções intimistas que exigem sofisticação e calor humano.</p>
+            <p className="destaque-desc">Localizado na Av. Rui Barbosa, 141 — Graças, Recife — o Patio Café reúne arquitetura acolhedora, iluminação natural e acabamento de alto padrão. Perfeito para cerimônias e recepções intimistas que exigem sofisticação e calor humano.</p>
           </div>
           <div className="galeria-carousel">
             <img src="/img/galeria.jpg" alt="Ambiente BibiApp" className="galeria-img" />
@@ -216,7 +216,7 @@ export default function InicialPage() {
               </form>
             </section>
             <aside aria-labelledby="gabi-title" style={{ width: '100%', background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(15,23,36,0.07)', padding: '20px 12px', marginTop: 8, textAlign: 'center' }} role="region">
-              <h3 id="gabi-title" style={{ marginTop: 0, fontSize: 16, color: '#0f1724', fontWeight: 700 }}>Simulador de valor do evento <span style={{ fontSize: '0.8em', color: '#c9a14a' }}>(IA do BibiApp)</span></h3>
+              <h3 id="gabi-title" style={{ marginTop: 0, fontSize: 16, color: '#0f1724', fontWeight: 700 }}>Simulador de valor do evento</h3>
               <label htmlFor="gabi-convidados" style={{ fontWeight: 600, fontSize: 15, color: '#0f1724' }}>Quantos convidados?</label>
               <input type="number" id="gabi-convidados" min={MIN_CONVIDADOS} max={MAX_CONVIDADOS} value={convidados} onChange={e => {
                 let v = parseInt(e.target.value, 10) || MIN_CONVIDADOS;
@@ -232,9 +232,9 @@ export default function InicialPage() {
       </main>
       <footer style={{ padding: '24px 0', borderTop: '1px solid #f1f3f5', marginTop: 32, background: '#fff', borderRadius: '0 0 18px 18px', boxShadow: '0 -2px 12px rgba(15,23,36,0.04)' }}>
         <div style={{ maxWidth: 600, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', textAlign: 'center' }}>
-          <div style={{ fontWeight: 700, color: '#0f1724', fontSize: 15 }}>BibiApp</div>
+          <div style={{ fontWeight: 700, color: '#0f1724', fontSize: 15 }}>Meu Evento</div>
           <div style={{ color: '#6b7280', fontSize: 14 }}>Av. Rui Barbosa, 141 — Graças, Recife - PE</div>
-          <div style={{ color: '#6b7280', fontSize: 14 }}>Tel: (xx) xxxx-xxxx — Instagram: @bibiapp</div>
+          {/* <div style={{ color: '#6b7280', fontSize: 14 }}>Tel: (xx) xxxx-xxxx — Instagram: @bibiapp</div> */}
           <div style={{ color: '#6b7280', fontSize: 13 }}>© {new Date().getFullYear()} BibiApp</div>
         </div>
       </footer>
