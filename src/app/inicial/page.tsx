@@ -68,7 +68,7 @@ export default function InicialPage() {
 
   function buildMessage() {
     const lines = [];
-    lines.push("Solicitação de Proposta - BibiApp");
+    lines.push("Solicitação de Proposta - MeuEvento");
     if (form.name) lines.push(`Nome: ${form.name}`);
     if (form.email) lines.push(`E-mail: ${form.email}`);
     if (form.phone) lines.push(`Telefone: ${form.phone}`);
@@ -76,7 +76,6 @@ export default function InicialPage() {
     if (form.message) lines.push(`Detalhes: ${form.message}`);
     lines.push("");
     lines.push("Endereço: Av. Rui Barbosa, 141 — Graças, Recife - PE");
-    lines.push("Por favor, responda com disponibilidade e opções de pacote.");
     return lines.join("\n");
   }
 
