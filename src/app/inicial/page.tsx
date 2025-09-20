@@ -36,6 +36,83 @@ function aplicarMascaraTelefone(valor: string) {
 }
 
 export default function InicialPage() {
+  const [datasOcupadasReserva, setDatasOcupadasReserva] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch('/db/datas_ocupadas.json')
+      .then(resp => resp.json())
+      .then(json => {
+        // Aceita datas nos formatos dd/mm/yyyy ou yyyy-mm-dd
+        const datas = json.map((item: { data: string }) => {
+          if (item.data.includes('/')) {
+            const [dia, mes, ano] = item.data.split('/');
+            return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+          } else if (item.data.includes('-')) {
+            return item.data;
+          } else {
+            return item.data;
+          }
+        });
+        setDatasOcupadasReserva(datas);
+      });
+  }, []);
+  // Modal de reserva do simulador
+  const [showReservaModal, setShowReservaModal] = useState(false);
+  const [reservaForm, setReservaForm] = useState({
+    nome: '',
+    telefone: '',
+    data: '',
+    horario: 'vespertino',
+    tipo: '',
+  });
+
+  function handleReservaChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name, value } = e.target;
+    if (name === 'telefone') {
+      // Mascara: (00)0000-0000
+      let v = value.replace(/\D/g, '');
+      if (v.length > 10) v = v.slice(0, 10);
+      let masked = v;
+      if (v.length >= 2) masked = `(${v.slice(0,2)})${v.slice(2)}`;
+      if (v.length >= 6) masked = `(${v.slice(0,2)})${v.slice(2,6)}-${v.slice(6)}`;
+      setReservaForm(f => ({ ...f, telefone: masked }));
+    } else {
+      setReservaForm(f => ({ ...f, [name]: value }));
+    }
+  }
+
+  async function handleReservaSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    // Validação: não pode reservar se a data já estiver ocupada
+    // Impede datas passadas
+    const hojeStr = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,'0')}-${String(new Date().getDate()).padStart(2,'0')}`;
+    if (reservaForm.data < hojeStr) {
+      alert('Escolha uma data futura.');
+      return;
+    }
+    if (datasOcupadasReserva.includes(reservaForm.data)) {
+      alert('Esta data já está reservada para outro evento. Escolha outra data.');
+      return;
+    }
+    // Envia para a API de leads
+    const lead = {
+      nome: reservaForm.nome,
+      telefone: reservaForm.telefone,
+      data: reservaForm.data,
+      horario: reservaForm.horario,
+      valor_evento: valorTotal,
+      quantidade: convidados,
+      tipo: reservaForm.tipo,
+    };
+    await fetch('/api/leed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead)
+    });
+    setShowReservaModal(false);
+    setReservaForm({ nome: '', telefone: '', data: '', horario: '', tipo: '' });
+    alert('Reserva enviada!');
+  }
   const [convidados, setConvidados] = useState(MIN_CONVIDADOS);
   const [valorTotal, setValorTotal] = useState(calcularValor(MIN_CONVIDADOS));
   const [form, setForm] = useState({
@@ -232,10 +309,39 @@ export default function InicialPage() {
               }} style={{ width: '100%', margin: '10px 0 18px 0', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #e6e7eb', fontSize: '1em' }} />
               <div style={{ fontSize: '1.2em', fontWeight: 700, color: '#0f1724', marginTop: 10 }}>Valor total: {formatarValor(valorTotal)}</div>
               <p style={{ color: '#6b7280', fontSize: '0.98em', marginTop: 18 }}>O simulador calcula o valor total do evento conforme o número de convidados. Mínimo 70, máximo 150.</p>
+              <button type="button" style={{ marginTop: 16, background: '#c9a14a', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 24px', fontWeight: 'bold', fontSize: 16 }} onClick={() => setShowReservaModal(true)}>Enviar reserva</button>
             </aside>
           </div>
         </section>
       </main>
+      {/* Modal de reserva */}
+      {showReservaModal && (() => {
+        const hojeStr = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,'0')}-${String(new Date().getDate()).padStart(2,'0')}`;
+        return (
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.45)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ background: '#fff', borderRadius: 16, padding: 32, minWidth: 320, boxShadow: '0 4px 24px rgba(15,23,36,0.18)' }}>
+              <h2 style={{ fontSize: 20, marginBottom: 12, color: '#c9a14a' }}>Enviar reserva</h2>
+              <form onSubmit={handleReservaSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ fontWeight: 600, fontSize: 16 }}>Valor simulado: <span style={{ color: '#0f1724' }}>{formatarValor(valorTotal)}</span></div>
+                <div style={{ fontWeight: 600, fontSize: 16 }}>Quantidade de pessoas: <span style={{ color: '#0f1724' }}>{convidados}</span></div>
+                <input type="text" name="nome" value={reservaForm.nome} onChange={handleReservaChange} placeholder="Nome" required style={{ padding: '10px', borderRadius: 8, border: '1.5px solid #e6e7eb' }} />
+                <input type="tel" name="telefone" value={reservaForm.telefone} onChange={handleReservaChange} placeholder="Telefone" required style={{ padding: '10px', borderRadius: 8, border: '1.5px solid #e6e7eb' }} />
+                <input type="date" name="data" value={reservaForm.data} onChange={handleReservaChange} required min={hojeStr} style={{ padding: '10px', borderRadius: 8, border: '1.5px solid #e6e7eb' }} />
+                <select name="horario" value={reservaForm.horario} onChange={handleReservaChange} required style={{ padding: '10px', borderRadius: 8, border: '1.5px solid #e6e7eb' }}>
+                  <option value="vespertino">Vespertino</option>
+                  <option value="noturno">Noturno</option>
+                </select>
+                <input type="text" name="tipo" value={reservaForm.tipo} onChange={handleReservaChange} placeholder="Tipo do evento" required style={{ padding: '10px', borderRadius: 8, border: '1.5px solid #e6e7eb' }} />
+                <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
+                  <button type="submit" style={{ flex: 1, background: '#c9a14a', color: '#fff', borderRadius: 999, padding: '12px 0', fontWeight: 700, fontSize: 15, border: 'none', cursor: 'pointer', minWidth: 120 }}>Confirmar reserva</button>
+                  <button type="button" style={{ flex: 1, background: '#fff', color: '#c9a14a', border: '1.5px solid #c9a14a', borderRadius: 999, padding: '12px 0', fontWeight: 700, fontSize: 15, cursor: 'pointer', minWidth: 120 }} onClick={() => setShowReservaModal(false)}>Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        );
+      })()}
+
       <footer style={{ padding: '24px 0', borderTop: '1px solid #f1f3f5', marginTop: 32, background: '#fff', borderRadius: '0 0 18px 18px', boxShadow: '0 -2px 12px rgba(15,23,36,0.04)' }}>
         <div style={{ maxWidth: 600, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', textAlign: 'center' }}>
           <div style={{ fontWeight: 700, color: '#0f1724', fontSize: 15 }}>Meu Evento</div>

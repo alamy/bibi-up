@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import './style.css'
 import Calendario from '../calendario';
+import LeedTable from '../leed';
 
 const tipos = ["casa exclusiva", "salão", "outro"];
 const horarios = ["vespertino", "noturno"];
@@ -20,6 +21,8 @@ type Evento = {
 };
 
 export default function DashboardPage() {
+  const [eventosPage, setEventosPage] = useState(0);
+  const eventosPerPage = 10;
   const [eventos, setEventos] = useState<Evento[]>([]);
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [filtroFechamento, setFiltroFechamento] = useState("");
@@ -85,6 +88,8 @@ export default function DashboardPage() {
     if (usuario.role !== "gerente" && ev.vendedor !== usuario.username) ok = false;
     return ok;
   });
+
+  const paginatedEventos = eventosFiltrados.slice(eventosPage * eventosPerPage, (eventosPage + 1) * eventosPerPage);
 
   // Adicionar evento
   async function handleAddEvento(e: { preventDefault: () => void; }) {
@@ -175,170 +180,181 @@ export default function DashboardPage() {
 
   return (
     <main className="dashboard-main">
-      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <div>
-          <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>Meu Evento</h1>
-          <div style={{ fontSize: "1rem", color: "#c9a14a", fontWeight: "bold" }}>Usuário: {usuario.username} ({usuario.role})</div>
+      <header className="dashboard-header">
+        <div className="dashboard-header-info">
+          <h1 className="dashboard-title">Meu Evento</h1>
+          <div className="dashboard-user">Usuário: {usuario.username} ({usuario.role})</div>
         </div>
-        <div style={{ display: "flex", gap: 12 }}>
-          <button className="logout" onClick={handleLogout} style={{ background: "#c9a14a", color: "#fff", border: "none", padding: "8px 16px", borderRadius: 8, fontWeight: "bold" }}>Logout</button>
-          <button onClick={handleResetBanco} style={{ background: "#b00", color: "#fff", border: "none", padding: "8px 16px", borderRadius: 8, fontWeight: "bold" }}>Reset Banco</button>
+        <div className="dashboard-header-actions">
+          <button className="logout" onClick={handleLogout}>Logout</button>
+          <button className="reset-banco" onClick={handleResetBanco}>Reset Banco</button>
         </div>
       </header>
 
-      <section style={{ marginBottom: 24 }}>
-        <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>Cadastrar evento</h2>
+      <section className="dashboard-section">
+        <h2 className="dashboard-section-title">Cadastrar evento</h2>
         <form onSubmit={handleAddEvento} className="form-cadastro">
-          <input type="date" required value={form.data} onChange={e => setForm({ ...form, data: e.target.value })} style={{ flex: 1 }} />
-          <input type="number" required min={1} max={300} placeholder="Público" value={form.publico} onChange={e => setForm({ ...form, publico: Number(e.target.value) })} style={{ flex: 1 }} />
-          <input type="text" required placeholder="Nome do cliente" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} style={{ flex: 1 }} />
-          <input type="tel" required placeholder="Telefone" value={form.telefone} onChange={e => setForm({ ...form, telefone: e.target.value })} style={{ flex: 1 }} />
-          <input type="number" min={0} placeholder="Valor do evento (opcional)" value={form.valor || ""} onChange={e => setForm({ ...form, valor: Number(e.target.value) })} style={{ flex: 1 }} />
-          <select value={form.tipo} onChange={e => setForm({ ...form, tipo: e.target.value })} style={{ flex: 1 }}>
+          <input type="date" required value={form.data} onChange={e => setForm({ ...form, data: e.target.value })} className="form-input" />
+          <input type="number" required min={1} max={300} placeholder="Público" value={form.publico} onChange={e => setForm({ ...form, publico: Number(e.target.value) })} className="form-input" />
+          <input type="text" required placeholder="Nome do cliente" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} className="form-input" />
+          <input type="tel" required placeholder="Telefone" value={form.telefone} onChange={e => setForm({ ...form, telefone: e.target.value })} className="form-input" />
+          <input type="number" min={0} placeholder="Valor do evento (opcional)" value={form.valor || ""} onChange={e => setForm({ ...form, valor: Number(e.target.value) })} className="form-input" />
+          <select value={form.tipo} onChange={e => setForm({ ...form, tipo: e.target.value })} className="form-input">
             {tipos.map(t => <option key={t} value={t}>{t}</option>)}
           </select>
-          <select value={form.horario} onChange={e => setForm({ ...form, horario: e.target.value })} style={{ flex: 1 }}>
+          <select value={form.horario} onChange={e => setForm({ ...form, horario: e.target.value })} className="form-input">
             {horarios.map(h => <option key={h} value={h}>{h}</option>)}
           </select>
-          <select value={form.fechamento} onChange={e => setForm({ ...form, fechamento: e.target.value })} style={{ flex: 1 }}>
+          <select value={form.fechamento} onChange={e => setForm({ ...form, fechamento: e.target.value })} className="form-input">
             {fechamentos.map(f => <option key={f} value={f}>{f}</option>)}
           </select>
-          <button type="submit" style={{ background: "#c9a14a", color: "#fff", border: "none", padding: "8px 16px", borderRadius: 8, fontWeight: "bold" }}>Adicionar</button>
+          <button type="submit" className="btn-adicionar">Adicionar</button>
         </form>
       </section>
 
-      <section style={{ marginBottom: 24 }}>
-        <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>Filtros</h2>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <select value={filtroFechamento} onChange={e => setFiltroFechamento(e.target.value)}>
+      <section className="dashboard-section">
+        <h2 className="dashboard-section-title">Filtros</h2>
+        <div className="dashboard-filtros">
+          <select value={filtroFechamento} onChange={e => setFiltroFechamento(e.target.value)} className="form-input">
             <option value="">Todos fechamentos</option>
             {fechamentos.map(f => <option key={f} value={f}>{f}</option>)}
           </select>
-          <select value={filtroTipo} onChange={e => setFiltroTipo(e.target.value)}>
+          
+          <select value={filtroTipo} onChange={e => setFiltroTipo(e.target.value)} className="form-input">
             <option value="">Todos tipos</option>
             {tipos.map(t => <option key={t} value={t}>{t}</option>)}
           </select>
-          <select value={filtroMes} onChange={e => setFiltroMes(e.target.value)}>
+          <select value={filtroMes} onChange={e => setFiltroMes(e.target.value)} className="form-input">
             <option value="">Todos meses</option>
             {meses.map((m, i) => <option key={m} value={m}>{nomesMeses[i]}</option>)}
           </select>
-          <select value={filtroAno} onChange={e => setFiltroAno(e.target.value)}>
+          <select value={filtroAno} onChange={e => setFiltroAno(e.target.value)} className="form-input">
             <option value="">Todos anos</option>
             {anosPresentes.map(a => <option key={a} value={a}>{a}</option>)}
           </select>
         </div>
       </section>
 
-      <section style={{ marginBottom: 24 }}>
-        <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>Eventos</h2>
-        <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff1", borderRadius: 8 }}>
-          <thead>
-            <tr style={{ background: "#c9a14a", color: "#fff" }}>
-              <th>Data</th>
-              <th>Público</th>
-              <th>Nome</th>
-              <th>Telefone</th>
-              <th>Tipo</th>
-              <th>Horário</th>
-              <th>Fechamento</th>
-              <th>Valor</th>
-              {usuario.role === "gerente" && <th>Vendedor</th>}
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {eventosFiltrados.length === 0 ? (
-              <tr><td colSpan={7} style={{ textAlign: "center", color: "#aaa" }}>Nenhum evento cadastrado.</td></tr>
-            ) : eventosFiltrados.map((ev) => {
-              const globalIdx = eventos.findIndex(e => e === ev);
-              if (editIndex === globalIdx) {
-                return (
-                  <tr key={globalIdx} style={{ background: "#fff6" }}>
-                    <td><input type="date" value={ev.data} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].data = e.target.value;
-                      setEventos(novosEventos);
-                    }} /></td>
-                    <td><input type="number" min={1} max={300} value={ev.publico} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].publico = Number(e.target.value);
-                      setEventos(novosEventos);
-                    }} /></td>
-                    <td><input type="text" value={ev.nome || ""} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].nome = e.target.value;
-                      setEventos(novosEventos);
-                    }} /></td>
-                    <td><input type="tel" value={ev.telefone || ""} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].telefone = e.target.value;
-                      setEventos(novosEventos);
-                    }} /></td>
-                    <td><select value={ev.tipo} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].tipo = e.target.value;
-                      setEventos(novosEventos);
-                    }}>{tipos.map(t => <option key={t} value={t}>{t}</option>)}</select></td>
-                    <td><select value={ev.horario} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].horario = e.target.value;
-                      setEventos(novosEventos);
-                    }}>{horarios.map(h => <option key={h} value={h}>{h}</option>)}</select></td>
-                    <td><select value={ev.fechamento} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].fechamento = e.target.value;
-                      setEventos(novosEventos);
-                    }}>{fechamentos.map(f => <option key={f} value={f}>{f}</option>)}</select></td>
-                    <td><input type="number" min={0} value={ev.valor || ""} onChange={e => {
-                      const novosEventos = [...eventos];
-                      novosEventos[globalIdx].valor = Number(e.target.value);
-                      setEventos(novosEventos);
-                    }} /></td>
-                    <td>
-                      <button onClick={() => handleSaveEdit(globalIdx)} style={{ background: "#c9a14a", color: "#fff", border: "none", padding: "4px 8px", borderRadius: 6, fontWeight: "bold", marginRight: 4 }}>Salvar</button>
-                      <button onClick={handleCancelEdit} style={{ background: "#fff", color: "#c9a14a", border: "1px solid #c9a14a", padding: "4px 8px", borderRadius: 6, fontWeight: "bold" }}>Cancelar</button>
-                    </td>
-                  </tr>
-                );
-              } else {
-                return (
-                  <tr key={globalIdx}>
-                    <td>{ev.data}</td>
-                    <td>{ev.publico}</td>
-                    <td>{ev.nome}</td>
-                    <td>{ev.telefone}</td>
-                    <td>{ev.tipo}</td>
-                    <td>{ev.horario}</td>
-                    <td>{ev.fechamento}</td>
-                    <td>{ev.valor ? `R$ ${Number(ev.valor).toLocaleString("pt-BR")}` : "-"}</td>
-                    {usuario.role === "gerente" && <td>{ev.vendedor}</td>}
-                    <td>
-                      <button onClick={() => handleEditEvento(globalIdx)} style={{ background: "#fff", color: "#c9a14a", border: "1px solid #c9a14a", padding: "4px 8px", borderRadius: 6, fontWeight: "bold", marginRight: 4 }}>Editar</button>
-                      <button onClick={() => handleDeleteEvento(globalIdx)} style={{ background: "#c9a14a", color: "#fff", border: "none", padding: "4px 8px", borderRadius: 6, fontWeight: "bold" }}>Deletar</button>
-                    </td>
-                  </tr>
-                );
-              }
-            })}
-          </tbody>
-        </table>
+      <section className="dashboard-section">
+        <h2 className="dashboard-section-title">Eventos</h2>
+        <div className="dashboard-table-wrapper">
+          <table className="dashboard-table">
+            <thead>
+              <tr className="dashboard-table-header">
+                <th>Data</th>
+                <th>Público</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Tipo</th>
+                <th>Horário</th>
+                <th>Fechamento</th>
+                <th>Valor</th>
+                {usuario.role === "gerente" && <th>Vendedor</th>}
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventosFiltrados.length === 0 ? (
+                <tr><td colSpan={7} className="dashboard-table-empty">Nenhum evento cadastrado.</td></tr>
+              ) : paginatedEventos.map((ev) => {
+                const globalIdx = eventos.findIndex(e => e === ev);
+                if (editIndex === globalIdx) {
+                  return (
+                    <tr key={globalIdx} className="dashboard-table-edit-row">
+                      <td><input type="date" value={ev.data} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].data = e.target.value;
+                        setEventos(novosEventos);
+                      }} className="form-input" /></td>
+                      <td><input type="number" min={1} max={300} value={ev.publico} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].publico = Number(e.target.value);
+                        setEventos(novosEventos);
+                      }} className="form-input" /></td>
+                      <td><input type="text" value={ev.nome || ""} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].nome = e.target.value;
+                        setEventos(novosEventos);
+                      }} className="form-input" /></td>
+                      <td><input type="tel" value={ev.telefone || ""} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].telefone = e.target.value;
+                        setEventos(novosEventos);
+                      }} className="form-input" /></td>
+                      <td><select value={ev.tipo} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].tipo = e.target.value;
+                        setEventos(novosEventos);
+                      }} className="form-input">{tipos.map(t => <option key={t} value={t}>{t}</option>)}</select></td>
+                      <td><select value={ev.horario} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].horario = e.target.value;
+                        setEventos(novosEventos);
+                      }} className="form-input">{horarios.map(h => <option key={h} value={h}>{h}</option>)}</select></td>
+                      <td><select value={ev.fechamento} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].fechamento = e.target.value;
+                        setEventos(novosEventos);
+                      }} className="form-input">{fechamentos.map(f => <option key={f} value={f}>{f}</option>)}</select></td>
+                      <td><input type="number" min={0} value={ev.valor || ""} onChange={e => {
+                        const novosEventos = [...eventos];
+                        novosEventos[globalIdx].valor = Number(e.target.value);
+                        setEventos(novosEventos);
+                      }} className="form-input" /></td>
+                      <td>
+                        <button onClick={() => handleSaveEdit(globalIdx)} className="btn-salvar">Salvar</button>
+                        <button onClick={handleCancelEdit} className="btn-cancelar">Cancelar</button>
+                      </td>
+                    </tr>
+                  );
+                } else {
+                  return (
+                    <tr key={globalIdx} className="dashboard-table-row">
+                      <td>{ev.data ? new Date(ev.data).toLocaleDateString('pt-BR') : '-'}</td>
+                      <td>{ev.publico}</td>
+                      <td>{ev.nome}</td>
+                      <td>{ev.telefone}</td>
+                      <td>{ev.tipo}</td>
+                      <td>{ev.horario}</td>
+                      <td>{ev.fechamento}</td>
+                      <td>{ev.valor ? `R$ ${Number(ev.valor).toLocaleString("pt-BR")}` : "-"}</td>
+                      {usuario.role === "gerente" && <td>{ev.vendedor}</td>}
+                      <td>
+                        <button onClick={() => handleEditEvento(globalIdx)} className="btn-editar">Editar</button>
+                        <button onClick={() => handleDeleteEvento(globalIdx)} className="btn-deletar">Deletar</button>
+                      </td>
+                    </tr>
+                  );
+                }
+              })}
+        <div className="dashboard-pagination">
+          <button onClick={() => setEventosPage(p => Math.max(0, p - 1))} disabled={eventosPage === 0} className="btn-paginacao">Anterior</button>
+          <span className="dashboard-pagination-info">Página {eventosPage + 1} de {Math.ceil(eventosFiltrados.length / eventosPerPage)}</span>
+          <button onClick={() => setEventosPage(p => p + 1)} disabled={(eventosPage + 1) * eventosPerPage >= eventosFiltrados.length} className="btn-paginacao">Próxima</button>
+        </div>
+            </tbody>
+          </table>
+        </div>
       </section>
 
-      <section style={{ marginBottom: 24 }}>
-        <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>Comissão</h2>
-        <div id="comissao-info" style={{ fontWeight: "bold", color: "#c9a14a", fontSize: "1.1rem" }}>
-          Comissão da vendedora (2%): <span style={{ color: "var(--gold,#c9a14a)" }}>R$ {comissao.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span><br />
+      <section className="dashboard-section">
+        <h2 className="dashboard-section-title">Comissão</h2>
+        <div id="comissao-info" className="dashboard-comissao-info">
+          Comissão da vendedora (2%): <span className="dashboard-comissao-valor">R$ {comissao.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span><br />
           Total de eventos fechados: <b>{eventos.length}</b>
         </div>
       </section>
 
       {/* Calendário do mês atual */}
-      <section style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>Calendário do mês</h2>
-        <div style={{ background: "#181818", borderRadius: 10, padding: 16, boxShadow: "0 2px 8px #0002" }}>
+      <section className="dashboard-section-calendario">
+        <h2 className="dashboard-section-title">Calendário do mês</h2>
+        <div className="dashboard-calendario-wrapper">
           <Calendario eventos={eventos} />
         </div>
       </section>
+
+      {/* Leads recebidos */}
+      <LeedTable />
     </main>
   );
 }

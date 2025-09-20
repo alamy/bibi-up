@@ -1,3 +1,98 @@
+.dashboard-table-wrapper {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+@media (max-width: 600px) {
+  .dashboard-main {
+    padding: 2px 2vw;
+    width: 100vw;
+    min-width: 0;
+  }
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .dashboard-header-info {
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .dashboard-title {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+  }
+  .dashboard-user {
+    font-size: 0.95rem;
+  }
+  .dashboard-header-actions {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .logout, .reset-banco {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .dashboard-section-title {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .form-cadastro {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .form-input {
+    min-width: 0;
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 8px 6px;
+  }
+  .btn-adicionar {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .dashboard-filtros {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dashboard-section {
+    margin-bottom: 18px;
+  }
+  .dashboard-table {
+    font-size: 0.92rem;
+    min-width: 500px;
+    display: block;
+    overflow-x: auto;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .dashboard-table-header th,
+  .dashboard-table-row td,
+  .dashboard-table-edit-row td {
+    padding: 7px 4px;
+    font-size: 0.92rem;
+  }
+  .dashboard-pagination-info {
+    font-size: 0.95rem;
+  }
+  .dashboard-comissao-info {
+    font-size: 1rem;
+    padding: 8px 8px;
+  }
+  .dashboard-section-calendario {
+    margin-bottom: 18px;
+  }
+  .dashboard-calendario-wrapper {
+    padding: 8px;
+    border-radius: 8px;
+  }
+}
 /* Dashboard Desktop CSS */
 .dashboard-main {
   background: #111;
