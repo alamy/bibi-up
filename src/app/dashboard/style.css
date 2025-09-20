@@ -1,0 +1,161 @@
+/* Dashboard Desktop CSS */
+.dashboard-main {
+  background: #111;
+  color: #fff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 0;
+  width: 90%;
+  margin: 10px auto;
+}
+.dashboard-main header {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+.dashboard-main h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0;
+}
+.dashboard-main .logout {
+  background: #c9a14a;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.dashboard-main .logout:hover {
+  background: #b08a2e;
+}
+.dashboard-main section {
+  margin-bottom: 32px;
+}
+.dashboard-main h2 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.dashboard-main form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.dashboard-main input,
+.dashboard-main select {
+  background: #222;
+  color: #fff;
+  border: 1px solid #c9a14a;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.dashboard-main input:focus,
+.dashboard-main select:focus {
+  border-color: #ffe066;
+}
+.dashboard-main button[type="submit"] {
+  background: #c9a14a;
+  color: #fff;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.dashboard-main button[type="submit"]:hover {
+  background: #b08a2e;
+}
+.dashboard-main .filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.dashboard-main table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #181818;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 1rem;
+}
+.dashboard-main th, .dashboard-main td {
+  padding: 10px 8px;
+  text-align: left;
+}
+.dashboard-main th {
+  background: #c9a14a;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+.dashboard-main tr {
+  border-bottom: 1px solid #222;
+}
+.dashboard-main tr:last-child {
+  border-bottom: none;
+}
+.dashboard-main td {
+  background: #181818;
+}
+.dashboard-main tr:nth-child(even) td {
+  background: #222;
+}
+.dashboard-main button {
+  font-size: 0.95rem;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 6px 16px;
+  border: none;
+  cursor: pointer;
+  margin-right: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.dashboard-main button[style*="background: #fff"] {
+  background: #fff;
+  color: #c9a14a;
+  border: 1px solid #c9a14a;
+}
+.dashboard-main button[style*="background: #c9a14a"] {
+  background: #c9a14a;
+  color: #fff;
+}
+.dashboard-main button:hover {
+  filter: brightness(0.95);
+}
+#comissao-info {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #c9a14a;
+  background: #181818;
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 0 2px 8px #0002;
+}
+@media (max-width: 900px) {
+  .dashboard-main {
+    max-width: 98vw;
+    padding: 8px;
+  }
+  .dashboard-main header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dashboard-main table, .dashboard-main th, .dashboard-main td {
+    font-size: 0.95rem;
+  }
+}

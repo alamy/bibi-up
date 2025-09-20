@@ -1,0 +1,322 @@
+[
+  {
+    "data": "14/01/2025",
+    "publico": 120,
+    "tipo": "casa exclusiva",
+    "horario": "matutino",
+    "valor": 28400,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "22/01/2025",
+    "publico": 80,
+    "tipo": "salão",
+    "horario": "noturno",
+    "valor": 19600,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "05/02/2025",
+    "publico": 60,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 15200,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "18/02/2025",
+    "publico": 150,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 45000,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "27/02/2025",
+    "publico": 90,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 20800,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "10/03/2025",
+    "publico": 110,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 23200,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "21/03/2025",
+    "publico": 70,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 18400,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "29/03/2025",
+    "publico": 130,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 30600,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "07/04/2025",
+    "publico": 100,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 20000,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "15/04/2025",
+    "publico": 140,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 37000,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "23/04/2025",
+    "publico": 60,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 15200,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "02/05/2025",
+    "publico": 120,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 28400,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "13/05/2025",
+    "publico": 80,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 19600,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "25/05/2025",
+    "publico": 150,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 35000,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "04/06/2025",
+    "publico": 90,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 20800,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "16/06/2025",
+    "publico": 110,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 23200,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "28/06/2025",
+    "publico": 70,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 18400,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "09/07/2025",
+    "publico": 130,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 30600,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "19/07/2025",
+    "publico": 100,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 25000,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "27/07/2025",
+    "publico": 140,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 37000,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "05/08/2025",
+    "publico": 60,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 15200,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "17/08/2025",
+    "publico": 120,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 28400,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "29/08/2025",
+    "publico": 80,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 19600,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "10/09/2025",
+    "publico": 150,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 45000,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "22/09/2025",
+    "publico": 90,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 20800,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "30/09/2025",
+    "publico": 110,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 23200,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "08/10/2025",
+    "publico": 70,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 18400,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "20/10/2025",
+    "publico": 130,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 30600,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "01/11/2025",
+    "publico": 100,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 25000,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "13/11/2025",
+    "publico": 140,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 37000,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "25/11/2025",
+    "publico": 60,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 15200,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "07/12/2025",
+    "publico": 120,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 28400,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "19/12/2025",
+    "publico": 80,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 19600,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "27/12/2025",
+    "publico": 150,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 45000,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "31/12/2025",
+    "publico": 90,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 20800,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "12/03/2025",
+    "publico": 110,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 23200,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "24/05/2025",
+    "publico": 70,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 18400,
+    "fechamento": "cliente em potencial"
+  },
+  {
+    "data": "06/08/2025",
+    "publico": 130,
+    "tipo": "salão",
+    "horario": "matutino",
+    "valor": 30600,
+    "fechamento": "cliente prospectado"
+  },
+  {
+    "data": "18/10/2025",
+    "publico": 100,
+    "tipo": "outro",
+    "horario": "vespertino",
+    "valor": 25000,
+    "fechamento": "cliente faturado"
+  },
+  {
+    "data": "30/11/2025",
+    "publico": 140,
+    "tipo": "casa exclusiva",
+    "horario": "noturno",
+    "valor": 37000,
+    "fechamento": "cliente em potencial"
+  }
+]

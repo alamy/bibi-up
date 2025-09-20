@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "nome": "Gabriela",
+      "senha": "morgana",
+      "telefone": null,
+      "tipo": "gerente",
+      "id": 1
+    },
+    {
+      "nome": "Alamy",
+      "senha": "teste123",
+      "telefone": null,
+      "tipo": "vendedor",
+      "id": 2
+    }
+  ]
+}
