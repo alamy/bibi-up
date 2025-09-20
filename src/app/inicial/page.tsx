@@ -168,6 +168,13 @@ export default function InicialPage() {
             <img src="/img/galeria.jpg" alt="Ambiente BibiApp" className="galeria-img" />
             <img src="/img/galeria2.jpg" alt="Ambiente 2" className="galeria-img" />
             <img src="/img/galeria3.jpg" alt="Ambiente 3" className="galeria-img" />
+            <img src="/img/galeria4.jpg" alt="Ambiente 4" className="galeria-img" />
+            <img src="/img/galeria5.jpg" alt="Ambiente 5" className="galeria-img" />
+            <img src="/img/galeria6.jpg" alt="Ambiente 6" className="galeria-img" />
+            <img src="/img/galeria7.jpg" alt="Ambiente 7" className="galeria-img" />
+            <img src="/img/galeria8.jpg" alt="Ambiente 8" className="galeria-img" />
+            <img src="/img/galeria9.jpg" alt="Ambiente 9" className="galeria-img" />
+            <img src="/img/galeria10.jpg" alt="Ambiente 10" className="galeria-img" />
           </div>
           <div className="box-carousel">
             <div className="box-item">
