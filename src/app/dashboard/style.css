@@ -4,8 +4,8 @@
   color: #fff;
   min-height: 100vh;
   font-family: 'Segoe UI', Arial, sans-serif;
-  padding: 0;
-  width: 90%;
+  padding: 2px 20px;
+  width: 95%;
   margin: 10px auto;
 }
 .dashboard-main header {

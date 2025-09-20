@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "data": "2025-09-26",
+    "publico": 124,
+    "tipo": "casa exclusiva",
+    "horario": "matutino",
+    "fechamento": "cliente em potencial",
+    "valor": 12222,
+    "telefone": "1312312",
+    "nome": "teste",
+    "vendedor": ""
+  },
+  {
+    "data": "2025-09-22",
+    "publico": 122,
+    "tipo": "salão",
+    "horario": "vespertino",
+    "fechamento": "cliente prospectado",
+    "valor": 122222,
+    "telefone": "13123123",
+    "nome": "teste",
+    "vendedor": ""
+  },
+  {
+    "data": "2025-09-26",
+    "publico": 122,
+    "tipo": "outro",
+    "horario": "noturno",
+    "fechamento": "cliente prospectado",
+    "valor": 23123123,
+    "telefone": "231231",
+    "nome": "qweqew",
+    "vendedor": ""
+  }
+]

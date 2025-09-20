@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import './style.css'
+import Calendario from '../calendario';
 
 const tipos = ["casa exclusiva", "salão", "outro"];
-const horarios = ["matutino", "vespertino", "noturno"];
+const horarios = ["vespertino", "noturno"];
 const fechamentos = ["cliente em potencial", "cliente prospectado", "cliente faturado"];
 
 type Evento = {
@@ -15,6 +16,7 @@ type Evento = {
   valor?: number;
   telefone?: string;
   nome?: string;
+  vendedor?: string;
 };
 
 export default function DashboardPage() {
@@ -34,6 +36,16 @@ export default function DashboardPage() {
     telefone: "",
     nome: ""
   });
+  const [usuario, setUsuario] = useState<{ username: string; role: string }>({ username: "", role: "vendedor" });
+
+  // Recuperar usuário logado
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const username = localStorage.getItem("username") || "";
+      const role = localStorage.getItem("role") || "vendedor";
+      setUsuario({ username, role });
+    }
+  }, []);
 
   // Proteção de rota
   useEffect(() => {
@@ -69,11 +81,13 @@ export default function DashboardPage() {
     if (filtroTipo && ev.tipo !== filtroTipo) ok = false;
     if (filtroMes && ev.data.split("/")[1] !== filtroMes) ok = false;
     if (filtroAno && ev.data.split("/")[2] !== filtroAno) ok = false;
+    // Vendedor só vê seus eventos
+    if (usuario.role !== "gerente" && ev.vendedor !== usuario.username) ok = false;
     return ok;
   });
 
   // Adicionar evento
-  function handleAddEvento(e: { preventDefault: () => void; }) {
+  async function handleAddEvento(e: { preventDefault: () => void; }) {
     e.preventDefault();
     let valor = form.valor;
     if (!valor || valor <= 0) {
@@ -82,20 +96,29 @@ export default function DashboardPage() {
       if (Number(form.publico) >= 100) valorBaseCasa = 15000;
       valor = valorBaseCasa + Number(form.publico) * valorBuffetPorPessoa;
     }
-    setEventos([
-      ...eventos,
-      { ...form, valor: valor, publico: Number(form.publico) },
-    ]);
-    setForm({
-      data: "",
-      publico: 0,
-      tipo: tipos[0],
-      horario: horarios[0],
-      fechamento: fechamentos[0],
-      valor: undefined,
-      telefone: "",
-      nome: ""
+    const novoEvento = { ...form, valor: valor, publico: Number(form.publico), vendedor: usuario.username };
+    // Cadastrar no banco via API
+    const resp = await fetch("/api/eventos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(novoEvento)
     });
+    if (resp.ok) {
+      // Atualizar lista local
+      setEventos([...eventos, novoEvento]);
+      setForm({
+        data: "",
+        publico: 0,
+        tipo: tipos[0],
+        horario: horarios[0],
+        fechamento: fechamentos[0],
+        valor: undefined,
+        telefone: "",
+        nome: ""
+      });
+    } else {
+      alert("Erro ao cadastrar evento!");
+    }
   }
 
   // Editar evento
@@ -153,7 +176,10 @@ export default function DashboardPage() {
   return (
     <main className="dashboard-main">
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>Dashboard</h1>
+        <div>
+          <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>Meu Evento</h1>
+          <div style={{ fontSize: "1rem", color: "#c9a14a", fontWeight: "bold" }}>Usuário: {usuario.username} ({usuario.role})</div>
+        </div>
         <div style={{ display: "flex", gap: 12 }}>
           <button className="logout" onClick={handleLogout} style={{ background: "#c9a14a", color: "#fff", border: "none", padding: "8px 16px", borderRadius: 8, fontWeight: "bold" }}>Logout</button>
           <button onClick={handleResetBanco} style={{ background: "#b00", color: "#fff", border: "none", padding: "8px 16px", borderRadius: 8, fontWeight: "bold" }}>Reset Banco</button>
@@ -162,7 +188,7 @@ export default function DashboardPage() {
 
       <section style={{ marginBottom: 24 }}>
         <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>Cadastrar evento</h2>
-        <form onSubmit={handleAddEvento} style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <form onSubmit={handleAddEvento} className="form-cadastro">
           <input type="date" required value={form.data} onChange={e => setForm({ ...form, data: e.target.value })} style={{ flex: 1 }} />
           <input type="number" required min={1} max={300} placeholder="Público" value={form.publico} onChange={e => setForm({ ...form, publico: Number(e.target.value) })} style={{ flex: 1 }} />
           <input type="text" required placeholder="Nome do cliente" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} style={{ flex: 1 }} />
@@ -216,13 +242,14 @@ export default function DashboardPage() {
               <th>Horário</th>
               <th>Fechamento</th>
               <th>Valor</th>
+              {usuario.role === "gerente" && <th>Vendedor</th>}
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             {eventosFiltrados.length === 0 ? (
               <tr><td colSpan={7} style={{ textAlign: "center", color: "#aaa" }}>Nenhum evento cadastrado.</td></tr>
-            ) : eventosFiltrados.map((ev, idx) => {
+            ) : eventosFiltrados.map((ev) => {
               const globalIdx = eventos.findIndex(e => e === ev);
               if (editIndex === globalIdx) {
                 return (
@@ -284,6 +311,7 @@ export default function DashboardPage() {
                     <td>{ev.horario}</td>
                     <td>{ev.fechamento}</td>
                     <td>{ev.valor ? `R$ ${Number(ev.valor).toLocaleString("pt-BR")}` : "-"}</td>
+                    {usuario.role === "gerente" && <td>{ev.vendedor}</td>}
                     <td>
                       <button onClick={() => handleEditEvento(globalIdx)} style={{ background: "#fff", color: "#c9a14a", border: "1px solid #c9a14a", padding: "4px 8px", borderRadius: 6, fontWeight: "bold", marginRight: 4 }}>Editar</button>
                       <button onClick={() => handleDeleteEvento(globalIdx)} style={{ background: "#c9a14a", color: "#fff", border: "none", padding: "4px 8px", borderRadius: 6, fontWeight: "bold" }}>Deletar</button>
@@ -303,6 +331,16 @@ export default function DashboardPage() {
           Total de eventos fechados: <b>{eventos.length}</b>
         </div>
       </section>
+
+      {/* Calendário do mês atual */}
+      <section style={{ marginBottom: 32 }}>
+        <h2 style={{ fontSize: "1.2rem", marginBottom: 8 }}>Calendário do mês</h2>
+        <div style={{ background: "#181818", borderRadius: 10, padding: 16, boxShadow: "0 2px 8px #0002" }}>
+          <Calendario eventos={eventos} />
+        </div>
+      </section>
     </main>
   );
 }
+
+
