@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 import './style.css'
 
 const PHONE_NUMBER = "5581996241204";
@@ -221,20 +222,31 @@ export default function InicialPage() {
   const minDate = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}-${String(hoje.getDate()).padStart(2,'0')}`;
 
   return (
-    <div className="main-bg">
-       
-      <header className="header-bg">
-        <div className="header-overlay" />
-        
-        <div className="header-content">
-          <h1 className="header-title">Eventos sofisticados<br />e memoráveis</h1>
-          <p className="header-desc">Casamentos, aniversários de 15 anos e eventos corporativos luxuosos no coração das Graças.</p>
-          <div className="header-actions">
-            <a href="#sobre" className="btn-outline-gold">Conheça o espaço</a>
-            <a href="#contato" className="btn-gold">Solicitar proposta</a>
+    <React.Fragment>
+      <Head>
+        <title>Casa de Festa para Casamento em Recife | Meu Evento</title>
+        <meta name="description" content="Casa de festa para casamento em Recife, Pernambuco. Espaço sofisticado para casamentos, aniversários e eventos corporativos. Gastronomia, decoração e assessoria completa. Solicite sua proposta!" />
+        <meta name="keywords" content="casa de festa, casamento, Recife, Pernambuco, espaço para eventos, festa de casamento, salão de festas, eventos corporativos, aniversário, buffet, gastronomia, decoração, assessoria, Graças, Brasil" />
+        <meta property="og:title" content="Casa de Festa para Casamento em Recife | Meu Evento" />
+        <meta property="og:description" content="O melhor espaço para casamentos e festas em Recife, Pernambuco. Gastronomia, decoração e assessoria completa para seu evento dos sonhos." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://meuevento.netlify.app/" />
+        <meta property="og:locale" content="pt_BR" />
+      </Head>
+      <div className="main-bg">
+        <header className="header-bg">
+          <div className="header-overlay" />
+          <div className="header-content">
+            <h1 className="header-title" style={{ fontSize: 32, fontWeight: 800, color: '#c9a14a', marginBottom: 8 }}>
+              Casa de Festa para Casamento em Recife, Pernambuco<br />Meu Evento
+            </h1>
+            <p className="header-desc">O melhor espaço para casamentos, aniversários e eventos corporativos em Recife. Gastronomia, decoração e assessoria completa para tornar seu sonho realidade.</p>
+            <div className="header-actions">
+              <a href="#sobre" className="btn-outline-gold">Conheça o espaço</a>
+              <a href="#contato" className="btn-gold">Solicitar proposta</a>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
       <main className="main-container">
         <section id="sobre" className="section-sobre">
           <div className="destaque">
@@ -351,5 +363,6 @@ export default function InicialPage() {
         </div>
       </footer>
     </div>
+    </React.Fragment>
   );
 }
