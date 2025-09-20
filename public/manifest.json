@@ -1,0 +1,24 @@
+{
+  "name": "BibiApp Eventos",
+  "short_name": "BibiApp",
+  "description": "Eventos sofisticados: casamentos, aniversários e corporativos de alto padrão.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf9f6",
+  "theme_color": "#c9a14a",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/img/logo.jfif",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/img/logo.jfif",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "lang": "pt-BR"
+}
