@@ -307,7 +307,7 @@ export default function InicialPage() {
                   <button type="submit" style={{ flex: 1, background: '#c9a14a', color: '#0f1724', borderRadius: 999, padding: '12px 0', fontWeight: 700, fontSize: 15, border: 'none', cursor: 'pointer', minWidth: 120 }}>Enviar via WhatsApp</button>
                   <button type="button" onClick={handleCopy} style={{ flex: 1, background: '#0f1724', color: '#fff', borderRadius: 999, padding: '12px 0', fontWeight: 700, fontSize: 15, border: 'none', cursor: 'pointer', minWidth: 120 }}>{copyMsg}</button>
                 </div>
-                <p style={{ color: '#6b7280', fontSize: 13, marginTop: 8 }}>Ao clicar em enviar, o WhatsApp será aberto com a mensagem preenchida para o número do BibiApp.</p>
+                <p style={{ color: '#6b7280', fontSize: 13, marginTop: 8 }}>Ao clicar em enviar, o WhatsApp será aberto com a mensagem preenchida para o número de bibiesco.</p>
               </form>
             </section>
             <aside aria-labelledby="gabi-title" style={{ width: '100%', background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(15,23,36,0.07)', padding: '20px 12px', marginTop: 8, textAlign: 'center' }} role="region">
